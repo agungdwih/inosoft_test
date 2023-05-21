@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kendaraan;
-use App\Models\Mobil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class MobilController extends Controller
+class KendaraanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +16,7 @@ class MobilController extends Controller
     public function index()
     {
         //
-        $data = Mobil::all();
+        $data = Kendaraan::all();
         return response()->json([
             "status" => "success",
             "data" => $data
@@ -44,10 +43,10 @@ class MobilController extends Controller
     {
         //
         $validator = Validator::make(request()->all(), [
-            'mesin mobil' => 'required|unique:mobil|max:255',
-            'kapasitas' => 'required',
-            'tipe' => 'required',
-            'stok' => '',
+            'tahun keluaran' => 'required|unique:kendaraan|max:255',
+            'warna' => 'required',
+            'harga' => 'required',
+            'jumlah stok' => '',
         ]);
         if ($validator->fails()) {
             return response()->json([
@@ -55,7 +54,7 @@ class MobilController extends Controller
                 "message" => $validator->messages()->first()
             ], 400);
         }
-        $data = Mobil::create($request->all());
+        $data = Kendaraan::create($request->all());
         if ($data) {
             return response()->json([
                 "status" => "success",
@@ -68,24 +67,19 @@ class MobilController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Mobil  $mobil
+     * @param  \App\Models\Kendaraan  $kendaraan
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         //
-        $data = Mobil::find($id);
+        $data = Kendaraan::find($id);
         if (!$data) {
             return response()->json([
                 "status" => "failed",
                 "message" => "data not found"
             ], 404);
         }
-        $kendaraan = Kendaraan::find($data->kendaraan_id);
-        // $data->tahun = $kendaraan->(tahun keluaran);
-        $data->warna_punya_noor = $kendaraan->warna;
-        $data->harga = $kendaraan->harga;
-
         return response()->json([
             "status" => "success",
             "data" => $data
@@ -95,10 +89,10 @@ class MobilController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Mobil  $mobil
+     * @param  \App\Models\Kendaraan  $kendaraan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Mobil $mobil)
+    public function edit(Kendaraan $kendaraan)
     {
         //
     }
@@ -107,13 +101,13 @@ class MobilController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Mobil  $mobil
+     * @param  \App\Models\Kendaraan  $kendaraan
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         //
-        $data = Mobil::find($id);
+        $data = Kendaraan::find($id);
         $data->update($request->all());
         if ($data) {
             return response()->json([
@@ -127,13 +121,13 @@ class MobilController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Mobil  $mobil
+     * @param  \App\Models\Kendaraan  $kendaraan
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Kendaraan $kendaraan, $id)
     {
         //
-        $data = Mobil::find($id);
+        $data = Kendaraan::find($id);
         if (!$data) {
             return response()->json([
                 "status" => "failed",

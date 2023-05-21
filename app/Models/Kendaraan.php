@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Jenssegers\Mongodb\Eloquent\Model; 
 
-class Mobil extends Model
+class Kendaraan extends Model
 {
     protected $connection = 'mongodb';
-    protected $collection = 'mobil';
+    protected $collection = 'kendaraan';
 
     protected $fillable = [
-        'mesin mobil','kapasitas','tipe','stok','kendaraan_id'
+        'tahun keluaran','warna','harga','jumlah stok'
     ];
 
     

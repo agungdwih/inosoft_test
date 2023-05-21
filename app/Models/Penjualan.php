@@ -3,13 +3,13 @@
 namespace App\Models;
 use Jenssegers\Mongodb\Eloquent\Model;
 
-class Motor extends Model
+class Penjualan extends Model
 {
     protected $connection = 'mongodb';
-    protected $collection = 'motor';
+    protected $collection = 'penjualan';
 
     protected $fillable = [
-        'mesin motor','suspensi','transmisi','stok'
+        'jumlah penjualan',
     ];
 
     
