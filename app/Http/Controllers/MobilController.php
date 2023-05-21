@@ -83,7 +83,7 @@ class MobilController extends Controller
         }
         $kendaraan = Kendaraan::find($data->kendaraan_id);
         // $data->tahun = $kendaraan->(tahun keluaran);
-        $data->warna_punya_noor = $kendaraan->warna;
+        $data->warna = $kendaraan->warna;
         $data->harga = $kendaraan->harga;
 
         return response()->json([
