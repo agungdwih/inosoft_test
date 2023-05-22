@@ -44,7 +44,7 @@ class MobilController extends Controller
     {
         //
         $validator = Validator::make(request()->all(), [
-            'mesin_mobil' => 'required|unique:mobil|max:255',
+            'mesin_mobil' => 'required|max:255',
             'kapasitas' => 'required',
             'tipe' => 'required',
             'stok' => '',

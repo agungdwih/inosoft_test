@@ -31,7 +31,7 @@ class AuthController extends Controller
         ]);
 
         if($validator->fails()){
-            return response()->json($validator->message());
+            return response()->json($validator->errors()->toJson(), 400);
         }
 
         $user = User::create([
@@ -88,10 +88,6 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function refresh()
-    {
-        return $this->respondWithToken(auth()->refresh());
-    }
 
     /**
      * Get the token array structure.

@@ -46,7 +46,7 @@ class KendaraanController extends Controller
             'tahun_keluaran' => 'required|unique:kendaraan|max:255',
             'warna' => 'required',
             'harga' => 'required',
-            'jumlah_stok' => '',
+            'jumlah_stok' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json([
