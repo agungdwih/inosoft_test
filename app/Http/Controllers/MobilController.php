@@ -44,7 +44,7 @@ class MobilController extends Controller
     {
         //
         $validator = Validator::make(request()->all(), [
-            'mesin mobil' => 'required|unique:mobil|max:255',
+            'mesin_mobil' => 'required|unique:mobil|max:255',
             'kapasitas' => 'required',
             'tipe' => 'required',
             'stok' => '',
@@ -82,9 +82,10 @@ class MobilController extends Controller
             ], 404);
         }
         $kendaraan = Kendaraan::find($data->kendaraan_id);
-        // $data->tahun = $kendaraan->(tahun keluaran);
+        $data->tahun = $kendaraan->tahun_keluaran;
         $data->warna = $kendaraan->warna;
         $data->harga = $kendaraan->harga;
+        $data->jumlah_stok = $kendaraan->jumlah_stok;
 
         return response()->json([
             "status" => "success",

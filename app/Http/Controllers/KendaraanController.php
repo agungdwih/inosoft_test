@@ -43,10 +43,10 @@ class KendaraanController extends Controller
     {
         //
         $validator = Validator::make(request()->all(), [
-            'tahun keluaran' => 'required|unique:kendaraan|max:255',
+            'tahun_keluaran' => 'required|unique:kendaraan|max:255',
             'warna' => 'required',
             'harga' => 'required',
-            'jumlah stok' => '',
+            'jumlah_stok' => '',
         ]);
         if ($validator->fails()) {
             return response()->json([

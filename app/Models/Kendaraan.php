@@ -10,7 +10,7 @@ class Kendaraan extends Model
     protected $collection = 'kendaraan';
 
     protected $fillable = [
-        'tahun keluaran','warna','harga','jumlah stok'
+        'tahun_keluaran','warna','harga','jumlah_stok'
     ];
 
     

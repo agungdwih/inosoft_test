@@ -2,16 +2,25 @@
 
 namespace App\Models;
 
-use Jenssegers\Mongodb\Eloquent\Model; 
+use Jenssegers\Mongodb\Eloquent\Model;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Mobil extends Model
+class Mobil extends Model implements JWTSubject
 {
     protected $connection = 'mongodb';
     protected $collection = 'mobil';
 
     protected $fillable = [
-        'mesin mobil','kapasitas','tipe','stok','kendaraan_id'
+        'mesin_mobil','kapasitas','tipe','stok','kendaraan_id'
     ];
 
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
     
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 }

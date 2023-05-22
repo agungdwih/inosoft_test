@@ -35,7 +35,7 @@ class MotorController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make(request()->all(), [
-            'mesin motor' => 'required|unique:motor|max:255',
+            'mesin_motor' => 'required|max:255',
             'suspensi' => 'required',
             'transmisi' => 'required',
             'stok' => '',
