@@ -9,7 +9,7 @@ class Penjualan extends Model
     protected $collection = 'penjualan';
 
     protected $fillable = [
-        'jumlah_penjualan',
+        'tipe_kendaraan','id_jual','qty'
     ];
 
     

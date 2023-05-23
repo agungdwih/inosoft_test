@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Motor;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Kendaraan;
 
 class MotorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -69,6 +74,12 @@ class MotorController extends Controller
                 "message" => "data not found"
             ], 404);
         }
+
+        $kendaraan = Kendaraan::find($data->kendaraan_id);
+        $data->tahun = $kendaraan->tahun_keluaran;
+        $data->warna = $kendaraan->warna;
+        $data->harga = $kendaraan->harga;
+        $data->jumlah_stok = $kendaraan->jumlah_stok;
         return response()->json([
             "status" => "success",
             "data" => $data

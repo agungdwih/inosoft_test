@@ -9,7 +9,7 @@ class Motor extends Model
     protected $collection = 'motor';
 
     protected $fillable = [
-        'mesin_motor','suspensi','transmisi','stok'
+        'mesin_motor','suspensi','transmisi','stok','kendaraan_id'
     ];
 
     

@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Mobil;
+use App\Models\Motor;
 use App\Models\Penjualan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class PenjualanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -43,7 +49,9 @@ class PenjualanController extends Controller
     {
         //
         $validator = Validator::make(request()->all(), [
-            'jumlah penjualan' => 'required|unique:penjualan|max:255',
+            'tipe_kendaraan' => 'required',
+            'id_jual' => 'required',
+            'qty' => 'required',
             
         ]);
         if ($validator->fails()) {
@@ -51,6 +59,19 @@ class PenjualanController extends Controller
                 "status" => "failed",
                 "message" => $validator->messages()->first()
             ], 400);
+        }
+
+        if($request['tipe_kendaraan']== 'mobil' ){
+            $mobil = Mobil::find($request['id_jual']);
+            $mobil->update([
+                "stok"=>$mobil['stok']-$request['qty']
+            ]);
+        }
+        if($request['tipe_kendaraan']== 'motor' ){
+            $mobil = Motor::find($request['id_jual']);
+            $mobil->update([
+                "stok"=>$mobil['stok']-$request['qty']
+            ]);
         }
         $data = Penjualan::create($request->all());
         if ($data) {
@@ -78,10 +99,36 @@ class PenjualanController extends Controller
                 "message" => "data not found"
             ], 404);
         }
-        return response()->json([
-            "status" => "success",
-            "data" => $data
-        ], 200);
+        $motor = Motor::find($data->id_jual);
+        if($motor){
+            $data->mesin = $motor->mesin_motor;
+            $data->suspensi = $motor->suspensi;
+            $data->transmisi = $motor->transmisi;
+            $data->jumlah_stok = $motor->stok;
+
+            return response()->json([
+                "status" => "success",
+                "data" => $data
+            ], 200);
+        }
+        
+        // $data->mesin = $motor->mesin_motor;
+        // $data->suspensi = $motor->suspensi;
+        // $data->transmisi = $motor->transmisi;
+        // $data->jumlah_stok = $motor->stok;
+
+        $mobil = Mobil::find($data->id_jual);
+        if($mobil){
+            $data->mesin = $mobil->mesin_mobil;
+            $data->kapasitas = $mobil->kapasitas;
+            $data->tipe = $mobil->tipe;
+            $data->jumlah_stok = $mobil->stok;
+            return response()->json([
+                "status" => "success",
+                "data" => $data
+            ], 200);
+        }
+        
     }
 
     /**
