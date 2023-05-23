@@ -1,4 +1,3 @@
-# Voucher app
 
 <!-- ABOUT THE PROJECT -->
 
